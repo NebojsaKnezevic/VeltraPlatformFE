@@ -1,116 +1,111 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // import './App.css'
 import Layout from "./pages/layout/layout";
-import { createTheme, ThemeProvider, CssBaseline, Box } from '@mui/material';
+import { createTheme, ThemeProvider, CssBaseline, Box, type ThemeOptions } from '@mui/material';
 import LandingPage from "./pages/landing-page";
+import ConcurSearch from "./pages/concur-search/concur-search";
 
 
-const lightTheme = createTheme({
+const getDesignTokens = (mode: 'light' | 'dark'): ThemeOptions => ({
   palette: {
-    mode: 'light',
-
-    primary: {
-      main: '#2563EB',   // Blue 600
-      dark: '#9b189bff',   // Blue 800
-      light: '#3B82F6',  // Blue 500
-      contrastText: '#FFFFFF',
-    },
-
-    secondary: {
-      main: '#DB2777',   // Pink 600
-      dark: '#BE185D',   // Pink 700
-      light: '#c96496ff',  // Pink 500
-      contrastText: '#FFFFFF',
-    },
-
-    background: {
-      default: '#F3F4F6', // Zinc 100 – soft gray
-      paper: '#FFFFFF',   // pure white for surfaces
-    },
+    mode,
+    primary: { main: '#rgba(0, 0, 0, 0.54)' },
+    secondary: { main: '#f50057' },
+    error: { main: '#f44336' },
+    warning: { main: '#ffa726' },
+    info: { main: '#29b6f6' },
+    success: { main: '#66bb6a' },
 
     text: {
-      primary: '#111827',   // Gray 900
-      secondary: 'white', // Gray 600
-      disabled: 'white',  // Gray 400
+      primary: mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#fff',
+      secondary: mode === 'light' ? 'rgba(0, 0, 0, 0.6)' : 'rgba(255, 255, 255, 0.7)',
+      disabled: 'rgba(0, 0, 0, 0.38)',
     },
 
-    divider: 'rgba(0,0,0,0.12)',
+    divider: 'rgba(0, 0, 0, 0.12)',
 
-    success: {
-      main: '#16A34A',      // Green 600
-      contrastText: '#FFFFFF',
-    },
-
-    warning: {
-      main: '#D97706',      // Amber 600
-      contrastText: '#FFFFFF',
-    },
-
-    error: {
-      main: '#DC2626',       // Red 600
-      contrastText: '#FFFFFF',
+    action: {
+      active: 'rgba(0, 0, 0, 0.54)',
+      hover: 'rgba(0, 0, 0, 0.04)',
+      selected: 'rgba(0, 0, 0, 0.08)',
     },
   },
+
+  shape: {
+    borderRadius: 4,
+  },
+
+  components: {
+    // MuiCssBaseline: {
+    //   styleOverrides: {
+    //     '.test-klasa': {
+    //       border: '2px solid gold',
+    //       filter: 'blur(0.5px)',
+    //       backgroundColor: mode === 'light' ? 'red' : 'darkred', // Logika TEST!
+    //       transition: 'all 0.3s ease',
+    //       '&:hover': {
+    //         filter: 'blur(0px)',
+    //         transform: 'scale(1.05)',
+    //       },
+    //     },
+    //   },
+    // },
+    MuiButton: {
+      defaultProps: {
+        variant: 'contained',
+        size: 'small',
+      },
+      styleOverrides: {
+        root: {
+          width: '100%',
+          height: '100%',
+          transition: 'all 0.3s ease',
+          '&:hover': {
+            filter: 'blur(0px)',
+            transform: 'scale(1.05)',
+          },
+        }
+      }
+    },
+
+    // Box:{
+    //   defaultPros: {
+    //     p:0
+    //   }
+    // },
+
+    MuiTextField: {
+      defaultProps: {
+        variant: 'outlined',
+        size: 'small',
+      },
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            backgroundColor: mode === 'light' ? '#fff' : '#222'
+          }
+        }
+      }
+    },
+
+    MuiSelect: {
+      defaultProps: {
+        variant: 'outlined',
+        size: 'small',
+      },
+      styleOverrides: {
+        root: {
+          width: '100%',
+          '& .MuiOutlinedInput-root': {
+            backgroundColor: mode === 'light' ? '#fff' : '#222'
+          }
+        }
+      }
+    }
+  }
 });
 
-
-
-const darkTheme = createTheme({
-  zIndex: {
-    drawer: 900,
-    appBar: 1201,
-  },
-
-  palette: {
-    mode: 'dark',
-
-    // Neutral DARK palette — NO blue, NO pink
-    primary: {
-      main: '#2D2D2D',      // dark gray
-      light: '#3C3C3C',
-      dark: '#1F1F1F',
-      contrastText: '#F5F5F5',
-    },
-
-    secondary: {
-      main: '#3A3A3A',      // slightly different gray
-      light: '#4A4A4A',
-      dark: '#2A2A2A',
-      contrastText: '#FFFFFF',
-    },
-
-    background: {
-      default: '#0E0E0E',   // almost black (not pure #000)
-      paper: '#1A1A1A',     // for cards, drawers, menus
-    },
-
-    text: {
-      primary: '#E4E4E4',    // soft white
-      secondary: '#E4E4E4',  // muted gray
-      disabled: '#E4E4E4',
-    },
-
-    divider: 'rgba(255,255,255,0.08)',
-
-    // Notifications still need color — but dark-friendly
-    success: {
-      main: '#1E8F4A',   // dark green
-      contrastText: '#FFFFFF',
-    },
-
-    warning: {
-      main: '#C47F0E',   // darker amber
-      contrastText: '#000000',
-    },
-
-    error: {
-      main: '#B53131',   // darker red
-      contrastText: '#FFFFFF',
-    },
-  },
-});
-
-
+const theme = createTheme(getDesignTokens('dark'));
 
 
 
@@ -119,20 +114,21 @@ function App() {
   // const [count, setCount] = useState(0)
   // const getWorkday = useUsers();
 
+
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
         <Routes>
 
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="/app" element={<Layout />}>
+            <Route index element={<Navigate to="ConcurSearch" replace />} />
 
-
-            <Route index element={<Box >HOME</Box>} />
-            <Route path="products" element={<>TEST1</>} />
-            <Route path="pricing" element={<>TEST2</>} />
-            <Route path="blog" element={<Box sx={{ mt: 10 }}>TEST3</Box>} />
+            {/* <Route index element={<Box >{JSON.stringify({})}</Box>} /> */}
+            <Route path="ConcurSearch" element={<ConcurSearch />} />
+            <Route path="PowerBI" element={<>TEST2</>} />
+            <Route path="ConcurLogsDashboard" element={<Box >TEST3</Box>} />
 
           </Route>
 

@@ -13,12 +13,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from "react-router-dom";
-import LeftDrawer from '../drawer/drawer';
+// import LeftDrawer from '../drawer/drawer';
 
 const pages = [
-  { label: 'Products', path: '/products' },
-  { label: 'Pricing', path: '/pricing' },
-  { label: 'Blog', path: '/blog' },
+  { label: 'Concur-Search', path: '/app/ConcurSearch' },
+  { label: 'POWER-BI', path: '/app/PowerBI' },
+  { label: 'CONCUR-LOGS-DASHBOARD', path: '/app/ConcurLogsDashboard' },
 ];
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -27,9 +27,9 @@ export default function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-//   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-//     setAnchorElNav(event.currentTarget);
-//   };
+  //   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+  //     setAnchorElNav(event.currentTarget);
+  //   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -42,16 +42,18 @@ export default function Navbar() {
     setAnchorElUser(null);
   };
 
-return(
-<AppBar position="relative"  sx={{zIndex: 1401}} id='CUSTOM APP BAR'>
-      <Container maxWidth="xl"  sx={{ backgroundColor: 'primary.main'}} >
+  return (
+    <AppBar position="relative" sx={{ zIndex: 1401 }} id='CUSTOM APP BAR'>
+      <Container maxWidth="xl"  >
         <Toolbar disableGutters>
-            <LeftDrawer/>
+          {/* DRAWER */}
+          {/* <LeftDrawer /> */}
+
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
-              component={Link}
+            component={Link}
             to={"/"}
             sx={{
               mr: 2,
@@ -96,7 +98,7 @@ return(
               {pages.map((page) => (
                 <MenuItem key={page.path} onClick={handleCloseNavMenu}>
                   <Typography sx={{ textAlign: 'center' }} component={Link}
-            to={page.path}>{page.label}</Typography>
+                    to={page.path}>{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -123,11 +125,12 @@ return(
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
+                variant='text'
                 key={page.path}
                 component={Link}
                 to={page.path}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'block', width: 'auto' }}
               >
                 {page.label}
               </Button>
@@ -165,6 +168,6 @@ return(
         </Toolbar>
       </Container>
     </AppBar>
-    );
+  );
 
 }

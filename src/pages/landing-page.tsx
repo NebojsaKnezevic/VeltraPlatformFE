@@ -1,10 +1,8 @@
 import { Box, Paper, Tabs, Tab, TextField, Button, Typography } from "@mui/material";
 import React, { useEffect, useReducer, useState } from "react";
 import { useRegister } from "../query/hooks/reigster";
-import { useLogin } from "../query/hooks/login";
-import { useNavigate } from 'react-router-dom'; // Uvezite hook
-import type { ApiResponse } from "../models/api-response";
-import type { UserModel } from "../models/user-model";
+import { useLogin, useSilentLogin } from "../query/hooks/login";
+import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from "../store/auth-store";
 
 type Action =
@@ -43,10 +41,26 @@ export default function LandingPage() {
         // console.log(_)
         setActiveTab(newValue);
     };
+    
+    const {
+        data: silentLoginData,
+        isSuccess: silentDataIsSuccess,
+        isLoading: isSilentLoading
+    } = useSilentLogin();
 
-    const { mutate: register, mutateAsync: masync, isLoading, error } = useRegister();
+    useEffect(() => {
+        if (silentDataIsSuccess && silentLoginData) {
+            // setUser(silentLoginData); // Sačuvaj korisnika u store
+            navigate("/app");
+        }
+    }, [silentDataIsSuccess, silentLoginData, navigate]);
 
-    const { mutate: login, mutateAsync: loginAsync, isPending, isError, data } = useLogin<ApiResponse<UserModel>>();
+
+    const { mutateAsync: masync } = useRegister();
+
+    const { mutateAsync: loginAsync, isPending, data } = useLogin();
+
+
 
 
     async function handleSubmit() {
@@ -63,15 +77,23 @@ export default function LandingPage() {
 
     const [state, dispatch] = useReducer(reducerFunc, initialState);
     const setUser = useAuthStore(s => s.setUser);
-    const user = useAuthStore(s => s.user);
+    // const user = useAuthStore(s => s.user);
     // console.log(state)
     useEffect(() => {
         if (data)
             setUser(data);
     }, [data])
+
+    if (isSilentLoading) {
+        return (
+            <Box sx={{ display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'center' }}>
+                <Typography>Checking session...</Typography>
+            </Box>
+        );
+    }
+
     if (isPending) return <Box>LOGGIN</Box>
 
-    console.log("user zustand", user?.data)
     return (
         <Box
             sx={{
@@ -192,7 +214,7 @@ export default function LandingPage() {
                                     });
 
 
-                                    console.log("Register success:", data);
+                                    // console.log("Register success:", data);
                                     alert(data.message || "Registered successfully!");
                                 } catch (err: any) {
                                     console.error("Register error:", err);

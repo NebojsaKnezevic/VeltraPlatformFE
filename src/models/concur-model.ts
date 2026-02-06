@@ -1,0 +1,33 @@
+export interface IConcurModel {
+  Geid: string | null;
+  LogonId: string | null;
+  FirstName: string | null;
+  LastName: string | null;
+  Email: string | null;
+  CompanyCode: string | null;
+  PayrollCompanyCode: string | null;
+  CountryCode: string | null;
+  CountryName: string | null;
+  AddressCode: string | null;
+  CostCenter: string | null;
+  Division: string | null;
+  Bu: string | null;
+  ExpenseApprover: string | null;
+  ExpenseApproverEmail: string | null;
+  ExpenseApproverFirstName: string | null;
+  ExpenseApproverLastName: string | null;
+  ManagerCountry: string | null;
+  SubGroup: string | null;
+  PersonalArea: string | null;
+  CarLease: string | null;
+  MonthlyAllowance: string | null;
+  CarAllowance: string;
+  LastSync: Date | string | null;
+  IsActive: string;
+  Address: string | null;
+  City: string | null;
+  State: string | null;
+  AddressCountry: string | null;
+  CompanyName: string | null;
+  LogicalSystem: string;
+}

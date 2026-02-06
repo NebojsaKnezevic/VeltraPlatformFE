@@ -1,0 +1,37 @@
+export interface IHrgtModel {
+  Geid: string | null;
+  LocalEmployeeId: string | null;
+  FirstName: string | null;
+  LastName: string | null;
+  Email: string | null;
+  CompanyCode: string | null;
+  PayrollCompanyCode: string | null;
+  CountryCode: string | null;
+  CountryName: string | null;
+  AddressCode: string | null;
+  CostCenter: string | null;
+  JobCode: string | null;
+  PositionName: string | null;
+  DivisionCode: string | null;
+  BuCode: string | null;
+  SubGroup: string | null;
+  PersonalArea: string | null;
+  AsCarLease: string | null;
+  CarAllowance: string | null;
+  AsMonthlyAllowance: string | null;
+  PgCode: string | null;
+  IsActive: string | null;
+  LastSynced: Date | string | null;
+  ExpenseApprover: string | null;
+  ExpenseApproverEmail: string | null;
+  ExpenseApproverFirstName: string | null;
+  ExpenseApproverLastName: string | null;
+  ManagerCountry: string | null;
+  Address: string | null;
+  City: string | null;
+  State: string | null;
+  AddressCountry: string | null;
+  CompanyName: string | null;
+  ConcurDummyPayroll: string | null;
+  LogicalSystem: string | null;
+}

@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { axiosClient } from "../../api/axios-client";
 import type { ApiResponse } from "../../models/api-response";
 import type { UserModel } from "../../models/user-model";
@@ -16,6 +16,23 @@ interface LoginPayload {
 export function useLogin() {
   return useMutation<ApiResponse<UserModel>, Error, LoginPayload>({
     mutationFn: ({ email, password }: { email: string; password: string }) =>
-      loginUser(email, password),
+      loginUser(email, password)
   });
+}
+
+async function silentLogin(){
+  const { data } = await axiosClient.get("/silentLogin");
+  return data;
+}
+
+export function useSilentLogin(){
+  return useQuery<ApiResponse<UserModel>>({
+    queryKey: ["silentLogin"],
+    queryFn: silentLogin,
+    staleTime: Infinity,
+    gcTime: Infinity,
+    retry: false, 
+    refetchOnWindowFocus: false, 
+    refetchOnMount: false
+  })
 }
