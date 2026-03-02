@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from "react-router-dom";
-// import LeftDrawer from '../drawer/drawer';
+import LeftDrawer from '../drawer/drawer';
 
 const pages = [
   { label: 'Concur-Search', path: '/app/ConcurSearch' },
@@ -43,29 +43,29 @@ export default function Navbar() {
   };
 
   return (
-    <AppBar position="relative" sx={{ zIndex: 1401 }} id='CUSTOM APP BAR'>
+    <AppBar position="absolute" sx={{ zIndex: 1401 }} id='CUSTOM APP BAR' elevation={0}>
       <Container maxWidth="xl"  >
         <Toolbar disableGutters>
           {/* DRAWER */}
-          {/* <LeftDrawer /> */}
+          <LeftDrawer />
 
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <Typography
             variant="h6"
             noWrap
             component={Link}
             to={"/"}
             sx={{
-              mr: 2,
+              mr: 3,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.25rem',
+              fontWeight: 1000,
+              letterSpacing: '.05rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            ABB logo
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

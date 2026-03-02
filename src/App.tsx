@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // import './App.css'
 import Layout from "./pages/layout/layout";
-import { createTheme, ThemeProvider, CssBaseline, Box, type ThemeOptions } from '@mui/material';
+import { createTheme, CssBaseline, type ThemeOptions } from '@mui/material';
 import LandingPage from "./pages/landing-page";
 import ConcurSearch from "./pages/concur-search/concur-search";
+import { CSDashboard } from "./pages/concur-logs-dashboard/concur-logs-dashboard";
 
 
 const getDesignTokens = (mode: 'light' | 'dark'): ThemeOptions => ({
@@ -105,7 +106,7 @@ const getDesignTokens = (mode: 'light' | 'dark'): ThemeOptions => ({
   }
 });
 
-const theme = createTheme(getDesignTokens('dark'));
+// const theme = createTheme(getDesignTokens('light'));
 
 
 
@@ -116,7 +117,8 @@ function App() {
 
 
   return (
-    <ThemeProvider theme={theme}>
+    // <ThemeProvider theme={theme}>
+    <>
       <CssBaseline />
       <BrowserRouter>
         <Routes>
@@ -128,13 +130,15 @@ function App() {
             {/* <Route index element={<Box >{JSON.stringify({})}</Box>} /> */}
             <Route path="ConcurSearch" element={<ConcurSearch />} />
             <Route path="PowerBI" element={<>TEST2</>} />
-            <Route path="ConcurLogsDashboard" element={<Box >TEST3</Box>} />
+            <Route path="ConcurLogsDashboard" element={<CSDashboard />} />
 
           </Route>
 
         </Routes>
       </BrowserRouter>
-    </ThemeProvider>
+    </>
+
+    // </ThemeProvider>
 
   )
 }
