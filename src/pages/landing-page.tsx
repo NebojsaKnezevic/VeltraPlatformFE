@@ -41,7 +41,7 @@ export default function LandingPage() {
         // console.log(_)
         setActiveTab(newValue);
     };
-    
+
     const {
         data: silentLoginData,
         isSuccess: silentDataIsSuccess,
@@ -92,7 +92,7 @@ export default function LandingPage() {
         );
     }
 
-    if (isPending) return <Box>LOGGIN</Box>
+    if (isPending) return <Box>LOGIN</Box>
 
     return (
         <Box
@@ -102,7 +102,7 @@ export default function LandingPage() {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                bgcolor: "background.default",
+                // bgcolor: "background.default",
                 px: 2,
             }}
         >
@@ -121,7 +121,7 @@ export default function LandingPage() {
                     maxWidth: 420,
                     p: 3,
                     borderRadius: 3,
-                    bgcolor: "primary.main",
+                    // bgcolor: "primary.main",
                 }}
             >
                 {/* Tabs */}
@@ -158,7 +158,7 @@ export default function LandingPage() {
                         <Button
                             fullWidth
                             variant="contained"
-                            color="secondary"
+                            // color="secondary"
                             sx={{ mt: 2 }}
                             onClick={async () => await handleSubmit()}
                         >
@@ -203,7 +203,7 @@ export default function LandingPage() {
                         <Button
                             fullWidth
                             variant="contained"
-                            color="secondary"
+                            // color="secondary"
                             sx={{ mt: 2 }}
                             onClick={async () => {
                                 try {

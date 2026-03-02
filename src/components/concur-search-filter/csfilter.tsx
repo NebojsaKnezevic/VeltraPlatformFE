@@ -1,5 +1,5 @@
 import type { ChangeEvent, JSX } from "react";
-import { Paper, Grid, TextField, FormControl, InputLabel, Select, MenuItem, Button, Box, type SelectChangeEvent, type SxProps, type Theme } from "@mui/material";
+import { Paper, Grid, TextField, FormControl, InputLabel, Select, MenuItem, Button, Box, type SelectChangeEvent, type SxProps, type Theme, Divider } from "@mui/material";
 import { useConcurSearchStore } from "../../store/concur-search-store";
 import type { IFilter } from "../../models/query-filter-model";
 
@@ -17,9 +17,28 @@ interface FormTextField {
     onAction?: () => void;
 }
 
-const inputFieldStyle: SxProps<Theme> = {
-    width: "100%",
-};
+const COMMON_STYLES: SxProps<Theme> = {
+    width: {
+        xs: '100%',
+        sm: '100%',
+        md: '30%',
+        lg: '18.5%',
+    },
+    "& .MuiInputBase-input": {
+        color: 'red',
+    },
+}
+
+const INPUT_STYLES: SxProps<Theme> = {
+    ...COMMON_STYLES,
+    bgcolor: 'white',
+}
+
+const SELECT_STYLES: SxProps<Theme> = {
+    ...COMMON_STYLES,
+}
+
+
 
 export const CSFilter = (): JSX.Element => {
     const filter = useConcurSearchStore((s) => s.queryFilter);
@@ -88,57 +107,63 @@ export const CSFilter = (): JSX.Element => {
         },
     ];
     return (
-        <Paper sx={{ p: 1 }}>
-            <Grid container spacing={2}>
-                {data.map((x, i) => {
-                    let element: JSX.Element;
+        <Box sx={{ p: 0, width: '100%', display: 'flex', alignContent: 'center', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+            <Paper elevation={0} sx={{ p: 0, width: '100%', display: 'flex', alignContent: 'center', justifyContent: 'center', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', gap: 2, justifyContent: 'left', mt: 2, p: 2, flexWrap: 'wrap' }} >
+                    {data.map((x, i) => {
+                        let element: JSX.Element;
 
-                    if (x.type === "TextField") {
-                        element = (
-                            <TextField
-                                id="outlined-basic"
-                                label={x.label.toUpperCase()}
-                                variant="outlined"
-                                onChange={x.fn}
-                                value={x.value}
-                                sx={inputFieldStyle}
-                            />
-                        );
-                    } else if (x.type === "Select") {
-                        element = (
-                            <FormControl fullWidth size="small">
-
-                                <InputLabel id={`label-${x.label}`}>{x.label.toUpperCase()}</InputLabel>
-
-                                <Select
-                                    labelId={`label-${x.label}`}
-                                    id={`select-${x.label}`}
-                                    value={x.value}
+                        if (x.type === "TextField") {
+                            element = (
+                                <TextField
+                                    size="small"
+                                    id="outlined-basic"
                                     label={x.label.toUpperCase()}
+                                    variant="outlined"
                                     onChange={x.fn}
-                                >
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                            </FormControl>
+                                    value={x.value}
+                                    sx={INPUT_STYLES}
+                                />
+                            );
+                        } else if (x.type === "Select") {
+                            element = (
+                                <FormControl fullWidth size="small" sx={SELECT_STYLES}>
+
+                                    <InputLabel id={`label-${x.label}`}>{x.label.toUpperCase()}</InputLabel>
+
+                                    <Select
+                                        labelId={`label-${x.label}`}
+                                        id={`select-${x.label}`}
+                                        value={x.value}
+                                        label={x.label.toUpperCase()}
+                                        onChange={x.fn}
+                                    >
+                                        <MenuItem value={10}>Ten</MenuItem>
+                                        <MenuItem value={20}>Twenty</MenuItem>
+                                        <MenuItem value={30}>Thirty</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            );
+                        } else if (x.type === "Button") {
+                            element = <Button onClick={x.onAction}>{x.label}</Button>;
+                        } else {
+                            element = <Box>Wrong type, check concur-search.tsx</Box>;
+                        }
+
+                        return (
+                            <>
+                                {element}
+                            </>
                         );
-                    } else if (x.type === "Button") {
-                        element = <Button onClick={x.onAction}>{x.label}</Button>;
-                    } else {
-                        element = <Box>Wrong type, check concur-search.tsx</Box>;
-                    }
-
-                    return (
-                        <Grid key={i} size={x.gridSize}>
-                            {element}
-                        </Grid>
-                    );
-                })}
+                    })}
 
 
 
-            </Grid>
-        </Paper>
+                </Box>
+
+            </Paper>
+            <Divider sx={{ width: '80%' }} />
+        </Box>
+
     );
 }
