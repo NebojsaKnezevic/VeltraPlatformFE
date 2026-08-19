@@ -1,12 +1,12 @@
-import type { UseQueryResult } from "@tanstack/react-query";
-import type { ApiResponse } from "../../../models/api-response";
+﻿import type { UseQueryResult } from "@tanstack/react-query";
+import type { ApiResponse } from "../../../../models/api-response";
 import { TableCell, TableRow } from "@mui/material";
 
-// Definišemo uniju tipova koje tvoja tabela podržava
+// Defini┼íemo uniju tipova koje tvoja tabela podr┼╛ava
 type AnyModel = any; // Ili: IHrgtModel | IHRGTdwModel | IConcurModel
 
 interface ICSRows {
-    // Koristimo query bez obzira na to koji je tačan model unutra
+    // Koristimo query bez obzira na to koji je ta─ìan model unutra
     query: UseQueryResult<ApiResponse<AnyModel[]>, Error>;
     headerNames: string[];
 }
@@ -26,7 +26,7 @@ export const CSRows = (props: ICSRows) => {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                     {headerNames.map((columnName, i) => {
-                        // Dinamički pristupamo polju na osnovu stringa iz headerNames
+                        // Dinami─ìki pristupamo polju na osnovu stringa iz headerNames
                         const cellValue = row[columnName];
 
                         return (

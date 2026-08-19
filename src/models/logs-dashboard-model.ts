@@ -75,3 +75,21 @@ export interface ConcurLogsResponse {
   messageTypes: MessageType[];
   dateRange: DateRange[];
 }
+
+interface MsgType {
+  ERROR: "ERROR";
+  SUCCESS: "SUCCESS";
+  INFO: "INFO";
+  WARNING: "WARNING";
+}
+
+export type Message = {
+  type: MsgType;
+  msg: string;
+};
+
+export interface ApiResponse<T> {
+  success: boolean;
+  message: Message[];
+  data?: T;
+}

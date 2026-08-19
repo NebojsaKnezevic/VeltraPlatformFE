@@ -1,4 +1,4 @@
-import { useQuery, type QueryFunctionContext } from "@tanstack/react-query";
+﻿import { useQuery, type QueryFunctionContext } from "@tanstack/react-query";
 import { axiosClient } from "../../api/axios-client";
 import type { IFilter } from "../../models/query-filter-model";
 import type { ApiResponse } from "../../models/api-response";
