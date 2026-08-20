@@ -38,15 +38,15 @@ export default function DetailsButton({ provision_id, extension_name }: DetailsP
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const queryClient = useQueryClient();
+    // const queryClient = useQueryClient();
 
-    // Refresh ONLY provisionId 1
-    queryClient.invalidateQueries({
-        queryKey: ["ConcurProcessLog", 1]
-    });
+    // // Refresh ONLY provisionId 1
+    // queryClient.invalidateQueries({
+    //     queryKey: ["ConcurProcessLog", 1]
+    // });
 
     const logs = useConcurLog(
-        { ...DEFAULT_LOGS_DASHBOARD_FILTER, provision_id: provision_id, extension_name: "" },
+        { ...DEFAULT_LOGS_DASHBOARD_FILTER, provision_id: provision_id, extension_name: extension_name || "" },
         provision_id,
         open
     );
