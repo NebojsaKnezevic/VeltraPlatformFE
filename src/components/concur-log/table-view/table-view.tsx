@@ -1,7 +1,8 @@
-import { DataGrid, type GridColDef, type GridPaginationModel } from '@mui/x-data-grid';
+import { DataGrid, type GridColDef, type GridPaginationModel, type GridRenderCellParams } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import type { ConcurLogsResponse } from '../../../models/logs-dashboard-model';
 import type { JSX } from 'react';
+import DetailsButton from '../details/details';
 
 const columns: GridColDef[] = [
     { field: 'created', headerName: 'Created', width: 180 },
@@ -14,8 +15,22 @@ const columns: GridColDef[] = [
     { field: 'message_text', headerName: 'Message Text', width: 250 },
     { field: 'message_path', headerName: 'Message Path', width: 250 },
     { field: 'message_type', headerName: 'Message Type', width: 120 },
-    { field: 'id', headerName: 'ID', width: 90 }
+    { field: 'id', headerName: 'ID', width: 90 },
+    {
+        field: 'act',
+        headerName: 'Act',
+        width: 120,
+        sortable: false,
+        filterable: false,
+        renderCell: (params: GridRenderCellParams) => (
+            <DetailsButton
 
+                provision_id={params.row.provision_id}
+                extension_name={params.row.extension_name}
+
+            />
+        ),
+    }
 ];
 
 interface ITableView {
@@ -24,9 +39,9 @@ interface ITableView {
     onPaginationModelChange: (model: GridPaginationModel) => void;
 }
 
-
 export default function TableView(props: ITableView): JSX.Element {
     const { concurResponse, paginationModel, onPaginationModelChange } = props;
+
 
     return (
         <Paper sx={{ height: 500, width: '100%' }}>

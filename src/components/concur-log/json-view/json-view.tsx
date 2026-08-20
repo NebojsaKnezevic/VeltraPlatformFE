@@ -33,6 +33,8 @@ export default function CustomJsonView(props: ICustomJsonView): JSX.Element {
                 style={{
                     color: "#81b88b",
                 }}
-            /></>
+            />
+
+        </>
     );
 }
