@@ -65,6 +65,7 @@ export const useConcurLog = (
 };
 
 export const useConcurPayload = (provisionId: number, enabled: boolean) => {
+  console.log("code 1010", enabled);
   return useQuery({
     queryKey: ["ConcurPayload", provisionId],
     queryFn: async () => {
@@ -74,6 +75,6 @@ export const useConcurPayload = (provisionId: number, enabled: boolean) => {
       return result.data;
     },
     enabled,
-    staleTime: Infinity,
+    // staleTime: Infinity,
   });
 };

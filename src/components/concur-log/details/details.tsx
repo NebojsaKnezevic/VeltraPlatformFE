@@ -9,7 +9,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import JsonView from "@uiw/react-json-view";
 import { useConcurLog, useConcurPayload } from "../../../query/hooks/concur-logs-dashboard";
 import { DEFAULT_LOGS_DASHBOARD_FILTER } from "../../../models/logs-dashboard-model";
-import { useQueryClient } from "@tanstack/react-query";
+import Async from "../async/async";
 
 const style = {
     position: 'absolute',
@@ -25,7 +25,7 @@ const style = {
     flexDirection: 'column',
     justifyContent: 'flex-start',
     p: 4,
-    overflow: 'hidden', // Sprečava da ceo modal dobije svoj scrollbar
+    overflow: 'hidden',
 };
 
 type DetailsProp = {
@@ -45,6 +45,8 @@ export default function DetailsButton({ provision_id, extension_name }: DetailsP
     //     queryKey: ["ConcurProcessLog", 1]
     // });
 
+    // console.log("CALL Details")
+
     const logs = useConcurLog(
         { ...DEFAULT_LOGS_DASHBOARD_FILTER, provision_id: provision_id, extension_name: extension_name || "" },
         provision_id,
@@ -52,6 +54,8 @@ export default function DetailsButton({ provision_id, extension_name }: DetailsP
     );
 
     const payload = useConcurPayload(provision_id, open);
+    console.log(provision_id, open);
+    console.log(payload.data?.data?.payload)
 
     return (
         <div>
@@ -88,16 +92,18 @@ export default function DetailsButton({ provision_id, extension_name }: DetailsP
                             <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ mb: 1 }}>
                                 LOGS
                             </Typography>
-                            {!logs.isPending && logs.data?.data && (
-                                <JsonView
-                                    value={logs.data?.data}
-                                    collapsed={false}
-                                    shortenTextAfterLength={0}
-                                    displayDataTypes={false}
-                                    displayObjectSize={false}
-                                    style={{ color: "#81b88b" }}
-                                />
-                            )}
+                            {
+                                <Async query={logs}>
+                                    {() => (<JsonView
+                                        value={logs.data?.data || { msg: 'No logs' }}
+                                        collapsed={false}
+                                        shortenTextAfterLength={0}
+                                        displayDataTypes={false}
+                                        displayObjectSize={false}
+                                        style={{ color: "#81b88b" }}
+                                    />)}
+                                </Async>
+                            }
                         </Box>
 
                         {/* KOLONA 2: PAYLOAD */}
@@ -112,18 +118,20 @@ export default function DetailsButton({ provision_id, extension_name }: DetailsP
                             <Typography id="modal-modal-description" variant="h6" component="h2" sx={{ mb: 1 }}>
                                 PAYLOAD
                             </Typography>
-                            {!payload.isPending && payload.data?.data?.payload && (
-                                <JsonView
-                                    value={JSON.parse(payload.data.data.payload)}
-                                    collapsed={false}
-                                    shortenTextAfterLength={0}
-                                    displayDataTypes={false}
-                                    displayObjectSize={false}
-                                    style={{ color: "#81b88b" }}
-
-
-                                />
-                            )}
+                            {
+                                <Async query={payload}>
+                                    {() => (
+                                        <JsonView
+                                            value={JSON.parse(payload.data.data.payload || `{ "msg": "No payload" }`)}
+                                            collapsed={false}
+                                            shortenTextAfterLength={0}
+                                            displayDataTypes={false}
+                                            displayObjectSize={false}
+                                            style={{ color: "#81b88b" }}
+                                        />
+                                    )}
+                                </Async>
+                            }
                         </Box>
 
                     </Box>
