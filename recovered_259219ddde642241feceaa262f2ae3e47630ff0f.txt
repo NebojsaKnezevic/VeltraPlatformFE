@@ -1,9 +1,7 @@
-import { useEffect, useMemo, type JSX } from "react";
+﻿import { useEffect, useMemo, type JSX } from "react";
 import { TableContainer, TableHead, Paper, Table, TableRow, TableBody, TableCell } from "@mui/material";
-import type { IConcurModel } from "../../models/concur-model";
-import { useConcurUsers, useHrgtdwUsers, useHrgtUsers } from "../../query/hooks/concur-search-main";
-import { useConcurSearchStore } from "../../store/concur-search-store";
-import type { IHrgtModel } from "../../models/hrgt-model";
+import { useConcurUsers, useHrgtdwUsers, useHrgtUsers } from "../../../query/hooks/concur-search-main";
+import { useConcurSearchStore } from "../../../store/concur-search-store";
 import { CSRows } from "./row/csrows";
 
 
@@ -64,9 +62,9 @@ export const CSTable = (): JSX.Element => {
                     {/* --- CONCUR SEKCIJA --- */}
                     <TableRow sx={{ bgcolor: '#e3f2fd' }}>
                         <TableCell colSpan={headerNames.length} sx={{ py: 1, fontWeight: 'bold', color: '#666' }}>
-                            🔵 CONCUR
+                            ≡ƒö╡ CONCUR
                             <span style={{ marginLeft: '10px', fontWeight: 'normal', color: '#666' }}>
-                                | Pronađeno: {concurData.data?.data?.length || 0} zapisa
+                                | Prona─æeno: {concurData.data?.data?.length || 0} zapisa
                             </span>
                         </TableCell>
                     </TableRow>
@@ -75,9 +73,9 @@ export const CSTable = (): JSX.Element => {
                     {/* --- HRGT SEKCIJA --- */}
                     <TableRow sx={{ bgcolor: '#fff3e0', mt: 2 }}>
                         <TableCell colSpan={headerNames.length} sx={{ py: 1, fontWeight: 'bold', color: '#666' }}>
-                            🟠 HRGT
+                            ≡ƒƒá HRGT
                             <span style={{ marginLeft: '10px', fontWeight: 'normal', color: '#666' }}>
-                                | Pronađeno: {hrgtData.data?.data?.length || 0} zapisa
+                                | Prona─æeno: {hrgtData.data?.data?.length || 0} zapisa
                             </span>
                         </TableCell>
                     </TableRow>
@@ -86,9 +84,9 @@ export const CSTable = (): JSX.Element => {
                     {/* --- HRGTDW SEKCIJA --- */}
                     <TableRow sx={{ bgcolor: '#fff3e0', mt: 2 }}>
                         <TableCell colSpan={headerNames.length} sx={{ py: 1, fontWeight: 'bold', color: '#666' }}>
-                            🟠 HRGTDW
+                            ≡ƒƒá HRGTDW
                             <span style={{ marginLeft: '10px', fontWeight: 'normal', color: '#666' }}>
-                                | Pronađeno: {hrgtdwData.data?.data?.length || 0} zapisa
+                                | Prona─æeno: {hrgtdwData.data?.data?.length || 0} zapisa
                             </span>
                         </TableCell>
                     </TableRow>

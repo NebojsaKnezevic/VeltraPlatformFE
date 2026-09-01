@@ -6,6 +6,24 @@ export const axiosClient = axios.create({
   withCredentials: true,
 });
 
+axiosClient.interceptors.request.use(
+  (config) => {
+    console.log("🔵 REQUEST SLANJA:", {
+      method: config.method,
+      url: config.url,
+      baseURL: config.baseURL,
+      fullURL: `${config.baseURL}${config.url}`,
+      data: config.data,
+      params: config.params,
+    });
+    return config;
+  },
+  (error) => {
+    console.log("🔴 REQUEST ERROR:", error);
+    return Promise.reject(error);
+  },
+);
+
 axiosClient.interceptors.response.use(
   (response: AxiosResponse) => {
     // console.log("Response catched!", response);

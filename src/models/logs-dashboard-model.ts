@@ -75,3 +75,37 @@ export interface ConcurLogsResponse {
   messageTypes: MessageType[];
   dateRange: DateRange[];
 }
+
+interface MsgType {
+  ERROR: "ERROR";
+  SUCCESS: "SUCCESS";
+  INFO: "INFO";
+  WARNING: "WARNING";
+}
+
+export type Message = {
+  type: MsgType;
+  msg: string;
+};
+
+export interface ApiResponse<T> {
+  success: boolean;
+  message: Message[];
+  data?: T;
+}
+
+export const DEFAULT_LOGS_DASHBOARD_FILTER: ILogsDashboardFilter = {
+  geid: "",
+  extension_name: "",
+  status_code: "",
+  status_result: "",
+  message_code: "",
+  message_text: "",
+  message_path: "",
+  message_type: "",
+  from: "",
+  to: "",
+  page: 1,
+  limit: 12,
+  provision_id: 0,
+};
